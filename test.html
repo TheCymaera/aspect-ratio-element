@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script type="module" src="dst/index.js"></script>
+</head>
+<body>
+	<div>
+		<label>
+			<input type="checkbox"/> Intrinsic size (Unconstrained)
+		</label>
+		<br>
+		<div>
+			Aspect ratio: 1:1.4142<br>
+			Measured aspect ratio: <span id="measuredAspectRatio"></span>
+		</div>
+		<hr />
+	</div>
+	<div class="container">
+		<aspect-ratio id="aspectRatioElement" style="--aspect-ratio: calc(1/1.4142);">
+			<div id="paper">
+				Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+				Dicta omnis repellendus doloribus quia libero. 
+				Odit beatae dolores praesentium ducimus vitae cum fuga cupiditate enim eligendi! 
+				Numquam fugit fugiat quibusdam placeat!
+			</div>
+		</aspect-ratio>
+	</div>
+	<style>
+		body {
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+
+			background: #eee;
+
+			display: grid;
+			grid-template-rows: min-content 1fr;
+			
+			margin: 0;
+			padding: .5em;
+		}
+
+		.container {
+			display: grid;
+			place-items: center;
+		}
+
+		aspect-ratio {
+			border: 2px solid red;
+			resize: both;
+			overflow: hidden;
+			width: 300px;
+			height: 300px;
+
+			padding: 1em;
+			box-sizing: border-box;
+		}
+
+		body[data-unconstrained] aspect-ratio {
+			border: 2px solid green;
+			width: unset;
+			height: unset;
+			resize: none;
+		}
+
+		#paper {
+			background: #fff;
+			box-shadow: 0 0 10px #0003;
+			padding: 1em;
+			width: 200px;
+			height: 200px;
+		}
+	</style>
+
+	<script>
+		document.querySelector("input").onchange = function () {
+			document.body.toggleAttribute('data-unconstrained', this.checked);
+			aspectRatioElement.style.height = '';
+			aspectRatioElement.style.width = '';
+		};
+
+		new ResizeObserver(()=>{
+			measuredAspectRatio.textContent = "1:" + (paper.clientHeight/paper.clientWidth).toFixed(4);
+			paper.style.fontSize = paper.clientWidth * 0.07 + "px";
+		}).observe(paper);
+	</script>
+</body>
+</html>
