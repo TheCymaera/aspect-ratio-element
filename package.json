@@ -1,6 +1,6 @@
 {
 	"name": "aspect-ratio-element",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Aspect ratio element.",
 	"main": "dst/index.js",
 	"type": "module",

@@ -25,10 +25,10 @@ template.innerHTML = /*html*/`
 ::slotted(*) {
 	--width: min(100%, calc(var(--_clientHeight) * var(--aspect-ratio)));
 	--height: min(100%, calc(var(--_clientWidth) / var(--aspect-ratio)));
-	min-width: var(--width);
-	max-width: var(--width);
-	min-height: var(--height);
-	max-height: var(--height);
+	min-width: var(--width) !important;
+	max-width: var(--width) !important;
+	min-height: var(--height) !important;
+	max-height: var(--height) !important;
 	box-sizing: border-box;
 }
 </style>
